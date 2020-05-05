@@ -52,7 +52,7 @@ public class SearchPaths {
 				f = get_file (folder + "/../", name);
 				if (f.query_exists ()) return f;
 
-				f = get_file (folder + "/../share/", name);
+				f = get_file (folder + "/../share/birdfont/", name);
 				if (f.query_exists ()) return f;	
 			}
 		}
