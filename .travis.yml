@@ -15,6 +15,7 @@ script:
   - ./install.py -d appdir
   - wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
   - chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+  - export LD_LIBRARY_PATH=./appdir/usr/lib:./appdir/usr/lib/x86_64:$LD_LIBRARY_PATH
   - |2
     ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage \
     -executable=appdir/usr/bin/birdfont-autotrace \
