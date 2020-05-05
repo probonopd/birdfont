@@ -91,6 +91,19 @@ script:
   - cp /usr/share/locale/pt_BR/LC_MESSAGES/birdfont.mo appdir/usr/share/locale/pt_BR/LC_MESSAGES/birdfont.mo
   - cp /usr/share/locale/fr/LC_MESSAGES/birdfont.mo appdir/usr/share/locale/fr/LC_MESSAGES/birdfont.mo
   - cp /usr/share/mime/packages/birdfont.xml appdir/usr/share/mime/packages/birdfont.xml
+  # FIXME: Workaround for https://github.com/johanmattssonm/birdfont/issues/97
+  - git clone https://github.com/project-portable/libunionpreload.git
+  - ( cd libunionpreload ; make )
+  - cp libunionpreload/libunionpreload.so appdir/
+  - |2
+    cat >> appdir/AppRun <\EOF
+    #!/usr/bin/env sh
+    export HERE="$(dirname "$(readlink -f "${0}")")"
+    export UNION_PRELOAD="${HERE}"
+    export LD_PRELOAD="${HERE}/libunionpreload.so"
+    exec "${HERE}/usr/bin/birdfont" "$@"
+    EOF
+    chmod +x appdir/AppRun
   - wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
   - chmod a+x linuxdeployqt-continuous-x86_64.AppImage
   - ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage
