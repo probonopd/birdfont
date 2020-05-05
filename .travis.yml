@@ -12,8 +12,7 @@ install:
 script:
   - ./configure --prefix=/usr
   - ./build.py
-  - sudo ./install.py -d appdir
-  - cp appdir/usr/share/applications/birdfont.desktop appdir/
+  - ./install.py -d appdir
   - wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
   - chmod a+x linuxdeployqt-continuous-x86_64.AppImage
   - |2
