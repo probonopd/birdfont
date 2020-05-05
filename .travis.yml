@@ -15,6 +15,8 @@ script:
   - ./install.py -d appdir
   - wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
   - chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+  - ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract 'usr/bin/patchelf'
+  - squashfs-root/usr/bin/patchelf --set-rpath '$ORIGIN' appdir/usr/lib/x86_64-linux-gnu/libbirdfont.so.*.*
   - find appdir/
   - export LD_LIBRARY_PATH=./appdir/usr/lib:./appdir/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
   - |2
