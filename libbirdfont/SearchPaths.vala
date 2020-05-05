@@ -50,6 +50,9 @@ public class SearchPaths {
 				if (f.query_exists ()) return f;	
 
 				f = get_file (folder + "/../", name);
+				if (f.query_exists ()) return f;
+
+				f = get_file (folder + "/../share/", name);
 				if (f.query_exists ()) return f;	
 			}
 		}
